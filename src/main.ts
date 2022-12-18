@@ -23,22 +23,28 @@ async function run(): Promise<void> {
 
     const options = {recursive: true, force: false}
 
-    const pack_paths = TARGET_SOURCE_PATHS.map(foo => {
-      const bar = path.join(foo, 'manifest.json')
-      return bar
+    const pack_paths = TARGET_SOURCE_PATHS.map(t => {
+      const tm = path.join(t, 'manifest.json')
+      return tm
     })
+
+    const discovered = new Array<{uuid: string, version: Array<number>}>()
 
     const globber = await glob.create(pack_paths.join('\n'))
     for await (const manifest of globber.globGenerator()) {
       const parsed_manifest: Manifest = JSON.parse(await readFile(manifest, 'utf8'))
 
-      core.info(`Found manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`)
+      core.debug(`Discovered manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`)
+
+      discovered.push({uuid: parsed_manifest.header.uuid, version: parsed_manifest.header.version})
 
       const dir_name = path.dirname(manifest)
       const base_dir = path.basename(dir_name)
 
       await io.cp(dir_name, `${TARGET_DEST_PATH}/${base_dir}`, options)
     }
+
+    core.setOutput("DISCOVERED_MANIFESTS", discovered)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

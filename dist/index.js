@@ -69,10 +69,11 @@ function run() {
             }
             yield io.mkdirP(inputs_1.TARGET_DEST_PATH);
             const options = { recursive: true, force: false };
-            const pack_paths = inputs_1.TARGET_SOURCE_PATHS.map(foo => {
-                const bar = path_1.default.join(foo, 'manifest.json');
-                return bar;
+            const pack_paths = inputs_1.TARGET_SOURCE_PATHS.map(t => {
+                const tm = path_1.default.join(t, 'manifest.json');
+                return tm;
             });
+            const discovered = new Array();
             const globber = yield glob.create(pack_paths.join('\n'));
             try {
                 for (var _d = true, _e = __asyncValues(globber.globGenerator()), _f; _f = yield _e.next(), _a = _f.done, !_a;) {
@@ -81,7 +82,8 @@ function run() {
                     try {
                         const manifest = _c;
                         const parsed_manifest = JSON.parse(yield (0, promises_1.readFile)(manifest, 'utf8'));
-                        core.info(`Found manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`);
+                        core.debug(`Discovered manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`);
+                        discovered.push({ uuid: parsed_manifest.header.uuid, version: parsed_manifest.header.version });
                         const dir_name = path_1.default.dirname(manifest);
                         const base_dir = path_1.default.basename(dir_name);
                         yield io.cp(dir_name, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
@@ -98,6 +100,7 @@ function run() {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
+            core.setOutput("DISCOVERED_MANIFESTS", discovered);
         }
         catch (error) {
             if (error instanceof Error)

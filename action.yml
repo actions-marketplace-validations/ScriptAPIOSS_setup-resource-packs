@@ -8,6 +8,10 @@ inputs:
   TARGET_DEST_PATH:
     required: true
     description: 'Paths to package'
+outputs:
+  DISCOVERED_MANIFESTS:
+    required: true
+    description: 'Paths to package'
 runs:
   using: 'node16'
   main: 'dist/index.js'
