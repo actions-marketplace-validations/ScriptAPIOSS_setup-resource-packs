@@ -3,9 +3,10 @@ import * as io from '@actions/io'
 import * as glob from '@actions/glob'
 
 import path from 'path'
+import { readFile } from 'fs/promises'
 
 import {TARGET_SOURCE_PATHS, TARGET_DEST_PATH} from './types/inputs'
-import { PassThrough } from 'stream'
+import {Manifest} from './types/manifests'
 
 async function run(): Promise<void> {
   try {
@@ -29,6 +30,10 @@ async function run(): Promise<void> {
 
     const globber = await glob.create(pack_paths.join('\n'))
     for await (const manifest of globber.globGenerator()) {
+      const parsed_manifest: Manifest = JSON.parse(await readFile(manifest, 'utf8'))
+
+      core.info(`Found manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`)
+
       const dir_name = path.dirname(manifest)
       const base_dir = path.basename(dir_name)
 

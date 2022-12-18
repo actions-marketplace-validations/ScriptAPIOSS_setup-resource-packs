@@ -53,6 +53,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const io = __importStar(__nccwpck_require__(7436));
 const glob = __importStar(__nccwpck_require__(8090));
 const path_1 = __importDefault(__nccwpck_require__(1017));
+const promises_1 = __nccwpck_require__(3292);
 const inputs_1 = __nccwpck_require__(8766);
 function run() {
     var _a, e_1, _b, _c;
@@ -79,6 +80,8 @@ function run() {
                     _d = false;
                     try {
                         const manifest = _c;
+                        const parsed_manifest = JSON.parse(yield (0, promises_1.readFile)(manifest, 'utf8'));
+                        core.info(`Found manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`);
                         const dir_name = path_1.default.dirname(manifest);
                         const base_dir = path_1.default.basename(dir_name);
                         yield io.cp(dir_name, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
@@ -5837,6 +5840,14 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
+
+/***/ }),
+
+/***/ 3292:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs/promises");
 
 /***/ }),
 

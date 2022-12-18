@@ -1,0 +1,26 @@
+{
+    "format_version": 2,
+    "header": {
+      "description": "Debug Pack for Testing 2",
+      "name": "Debug Pack 2",
+      "uuid": "e98f5e9d-ad99-4f69-b7fa-6e4ef9454db8",
+      "version": [0, 0, 1],
+      "min_engine_version": [1, 14, 0]
+    },
+    "modules": [
+      {
+        "description": "Debug Pack for Testing 2",
+        "type": "script",
+        "uuid": "66b835d5-99ec-424b-83c6-1e949b5da275",
+        "version": [0, 0, 1],
+        "language": "JavaScript",
+        "entry": "scripts/Main.js"
+      }
+    ],
+    "dependencies": [
+      {
+        "module_name": "@minecraft/server-gametest",
+        "version": "1.0.0-beta"
+      }
+    ]
+  }
