@@ -22,8 +22,7 @@ jobs:
       - uses: ./
         with:
           TARGET_SOURCE_PATHS: |
-            ./example_packs/pack_1/
-            ./example_packs/pack_2/
+            ./example_packs/**/
           TARGET_DEST_PATH: dest/
       - name: debug
         run: |
