@@ -14,8 +14,8 @@ test('test runs', () => {
   }
   // end of local dev stuff
 
-  process.env['INPUT_TARGET_SOURCE_PATHS'] = 'example_packs/pack_1/\nexample_packs/pack_2/'
-  process.env['INPUT_TARGET_DEST_PATH'] = 'dest/'
+  process.env['INPUT_TARGET_SOURCE_PATHS'] = './example_packs/pack_1/\n./example_packs/pack_2/'
+  process.env['INPUT_TARGET_DEST_PATH'] = './dest/'
 
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
