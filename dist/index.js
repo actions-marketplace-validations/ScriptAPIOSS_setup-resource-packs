@@ -83,7 +83,7 @@ function run() {
                         const manifest = _c;
                         const parsed_manifest = JSON.parse(yield (0, promises_1.readFile)(manifest, 'utf8'));
                         core.debug(`Discovered manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`);
-                        discovered.push({ uuid: parsed_manifest.header.uuid, version: parsed_manifest.header.version });
+                        discovered.push({ pack_id: parsed_manifest.header.uuid, version: parsed_manifest.header.version });
                         const dir_name = path_1.default.dirname(manifest);
                         const base_dir = path_1.default.basename(dir_name);
                         yield io.cp(dir_name, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
