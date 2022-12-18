@@ -10,7 +10,6 @@ inputs:
     description: 'Paths to package'
 outputs:
   DISCOVERED_MANIFESTS:
-    required: true
     description: 'Paths to package'
 runs:
   using: 'node16'
