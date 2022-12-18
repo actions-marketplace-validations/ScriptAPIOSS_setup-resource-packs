@@ -28,7 +28,7 @@ async function run(): Promise<void> {
       return tm
     })
 
-    const discovered = new Array<{uuid: string, version: Array<number>}>()
+    const discovered = new Array<{pack_id: string, version: Array<number>}>()
 
     const globber = await glob.create(pack_paths.join('\n'))
     for await (const manifest of globber.globGenerator()) {
@@ -36,7 +36,7 @@ async function run(): Promise<void> {
 
       core.debug(`Discovered manifest: ${parsed_manifest.header.uuid} [${parsed_manifest.header.version}]`)
 
-      discovered.push({uuid: parsed_manifest.header.uuid, version: parsed_manifest.header.version})
+      discovered.push({pack_id: parsed_manifest.header.uuid, version: parsed_manifest.header.version})
 
       const dir_name = path.dirname(manifest)
       const base_dir = path.basename(dir_name)
