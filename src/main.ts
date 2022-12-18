@@ -21,18 +21,25 @@ async function run(): Promise<void> {
 
     const options = {recursive: true, force: false}
 
-    for (const p of TARGET_SOURCE_PATHS) {
-      // const base_dir = path.basename(p)
-      const foo = path.join(p, "manifest.json")
-      const globber = await glob.create(foo)
-      const files = await globber.glob()
+    const test = TARGET_SOURCE_PATHS.map(foo => {
+      const bar = path.join(foo, "manifest.json")
+      return bar
+    })
 
-      for (const f of files) {
-        core.info(`got: ${f}`)
-      }
+    core.info(`got: ${test}`)
+
+    // for (const p of TARGET_SOURCE_PATHS) {
+    //   // const base_dir = path.basename(p)
+    //   const foo = path.join(p, "manifest.json")
+    //   const globber = await glob.create(foo)
+    //   const files = await globber.glob()
+
+    //   for (const f of files) {
+    //     core.info(`got: ${f}`)
+    //   }
       
-      // await io.cp(p, `${TARGET_DEST_PATH}/${base_dir}`, options)
-    }
+    //   // await io.cp(p, `${TARGET_DEST_PATH}/${base_dir}`, options)
+    // }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
