@@ -69,7 +69,7 @@ function run() {
             yield io.mkdirP(inputs_1.TARGET_DEST_PATH);
             const options = { recursive: true, force: false };
             const pack_paths = inputs_1.TARGET_SOURCE_PATHS.map(foo => {
-                const bar = path_1.default.join(foo, "manifest.json");
+                const bar = path_1.default.join(foo, 'manifest.json');
                 return bar;
             });
             const globber = yield glob.create(pack_paths.join('\n'));
@@ -78,8 +78,10 @@ function run() {
                     _c = _f.value;
                     _d = false;
                     try {
-                        const file = _c;
-                        core.info(file);
+                        const manifest = _c;
+                        const dir_name = path_1.default.dirname(manifest);
+                        const base_dir = path_1.default.basename(dir_name);
+                        yield io.cp(dir_name, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
                     }
                     finally {
                         _d = true;
@@ -93,16 +95,6 @@ function run() {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            // for (const p of TARGET_SOURCE_PATHS) {
-            //   // const base_dir = path.basename(p)
-            //   const foo = path.join(p, "manifest.json")
-            //   const globber = await glob.create(foo)
-            //   const files = await globber.glob()
-            //   for (const f of files) {
-            //     core.info(`got: ${f}`)
-            //   }
-            //   // await io.cp(p, `${TARGET_DEST_PATH}/${base_dir}`, options)
-            // }
         }
         catch (error) {
             if (error instanceof Error)
