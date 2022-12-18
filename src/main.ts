@@ -21,12 +21,15 @@ async function run(): Promise<void> {
 
     const options = {recursive: true, force: false}
 
-    const test = TARGET_SOURCE_PATHS.map(foo => {
+    const pack_paths = TARGET_SOURCE_PATHS.map(foo => {
       const bar = path.join(foo, "manifest.json")
       return bar
     })
 
-    core.info(`got: ${test}`)
+    const globber = await glob.create(pack_paths.join('\n'))
+for await (const file of globber.globGenerator()) {
+  core.info(file)
+}
 
     // for (const p of TARGET_SOURCE_PATHS) {
     //   // const base_dir = path.basename(p)
