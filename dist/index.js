@@ -62,6 +62,7 @@ function run() {
             for (const p of inputs_1.TARGET_SOURCE_PATHS) {
                 const dir = path_1.default.basename(path_1.default.dirname(p));
                 core.info(`foo: ${path_1.default.dirname(p)}`);
+                core.info(`foo: ${path_1.default.basename(p)}`);
                 core.info(`Dest path: ${p} - ${dir} - ${inputs_1.TARGET_DEST_PATH}/${dir}`);
                 yield io.cp(p, `${inputs_1.TARGET_DEST_PATH}/${dir}`, options);
             }
