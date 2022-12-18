@@ -1,4 +1,4 @@
-name: 'setup-bds'
+name: 'setup-resource-packs'
 description: 'An action to download and setup minecraft bds for testing environments'
 author: 'ScriptAPIOSS'
 inputs:
