@@ -59,10 +59,21 @@ function run() {
             }
             yield io.mkdirP(inputs_1.TARGET_DEST_PATH);
             const options = { recursive: true, force: false };
-            for (const p of inputs_1.TARGET_SOURCE_PATHS) {
-                const base_dir = path_1.default.basename(p);
-                yield io.cp(p, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
-            }
+            const test = inputs_1.TARGET_SOURCE_PATHS.map(foo => {
+                const bar = path_1.default.join(foo, "manifest.json");
+                return bar;
+            });
+            core.info(`got: ${test}`);
+            // for (const p of TARGET_SOURCE_PATHS) {
+            //   // const base_dir = path.basename(p)
+            //   const foo = path.join(p, "manifest.json")
+            //   const globber = await glob.create(foo)
+            //   const files = await globber.glob()
+            //   for (const f of files) {
+            //     core.info(`got: ${f}`)
+            //   }
+            //   // await io.cp(p, `${TARGET_DEST_PATH}/${base_dir}`, options)
+            // }
         }
         catch (error) {
             if (error instanceof Error)
