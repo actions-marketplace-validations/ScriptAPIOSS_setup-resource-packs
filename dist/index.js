@@ -60,11 +60,8 @@ function run() {
             yield io.mkdirP(inputs_1.TARGET_DEST_PATH);
             const options = { recursive: true, force: false };
             for (const p of inputs_1.TARGET_SOURCE_PATHS) {
-                const dir = path_1.default.basename(path_1.default.dirname(p));
-                core.info(`foo: ${path_1.default.dirname(p)}`);
-                core.info(`foo: ${path_1.default.basename(p)}`);
-                core.info(`Dest path: ${p} - ${dir} - ${inputs_1.TARGET_DEST_PATH}/${dir}`);
-                yield io.cp(p, `${inputs_1.TARGET_DEST_PATH}/${dir}`, options);
+                const base_dir = path_1.default.basename(p);
+                yield io.cp(p, `${inputs_1.TARGET_DEST_PATH}/${base_dir}`, options);
             }
         }
         catch (error) {

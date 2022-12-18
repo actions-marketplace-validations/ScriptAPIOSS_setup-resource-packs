@@ -21,13 +21,9 @@ async function run(): Promise<void> {
     const options = {recursive: true, force: false}
 
     for (const p of TARGET_SOURCE_PATHS) {
-      const dir = path.basename(path.dirname(p))
-
-      core.info(`foo: ${path.dirname(p)}`)
-      core.info(`foo: ${path.basename(p)}`)
-      core.info(`Dest path: ${p} - ${dir} - ${TARGET_DEST_PATH}/${dir}`)
+      const base_dir = path.basename(p)
       
-      await io.cp(p, `${TARGET_DEST_PATH}/${dir}`, options)
+      await io.cp(p, `${TARGET_DEST_PATH}/${base_dir}`, options)
     }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
