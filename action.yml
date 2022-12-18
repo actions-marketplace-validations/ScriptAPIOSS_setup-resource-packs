@@ -5,7 +5,9 @@ inputs:
   TARGET_SOURCE_PATHS:
     required: true
     description: 'Paths to package'
-    default: ''
+  TARGET_DEST_PATH:
+    required: true
+    description: 'Paths to package'
 runs:
   using: 'node16'
   main: 'dist/index.js'
