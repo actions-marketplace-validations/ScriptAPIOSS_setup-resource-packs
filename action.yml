@@ -1,0 +1,14 @@
+name: 'setup-bds'
+description: 'An action to download and setup minecraft bds for testing environments'
+author: 'ScriptAPIOSS'
+inputs:
+  TARGET_SOURCE_PATHS:
+    required: true
+    description: 'Paths to package'
+    default: ''
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: 'download'
+  color: 'yellow'
