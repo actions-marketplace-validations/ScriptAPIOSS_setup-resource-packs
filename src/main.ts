@@ -22,6 +22,8 @@ async function run(): Promise<void> {
 
     for (const p of TARGET_SOURCE_PATHS) {
       const dir = path.basename(path.dirname(p))
+
+      core.info(`Dest path: ${p} - ${dir} - ${TARGET_DEST_PATH}/${dir}`)
       
       await io.cp(p, `${TARGET_DEST_PATH}/${dir}`, options)
     }
